@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,12 @@ public class PmsDaoTests {
     private PmsMemberPriceDao memberPriceDao;
     @Autowired
     private PmsProductDao productDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsDaoTests.class);
     @Test
     @Transactional
@@ -50,5 +58,16 @@ public class PmsDaoTests {
         PmsProductResult productResult = productDao.getUpdateInfo(7L);
         String json = JSONUtil.parse(productResult).toString();
         LOGGER.info(json);
+    }
+    @Test
+    public void testpwd(){
+        String pwd = passwordEncoder.encode("123");
+        System.out.printf(pwd);
+    }
+
+    @Test
+    public void testRedis(){
+        redisTemplate.opsForValue().set("count","99");
+        System.out.printf("123");
     }
 }

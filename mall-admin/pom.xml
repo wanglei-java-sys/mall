@@ -39,10 +39,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.macro.mall.MallAdminApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
